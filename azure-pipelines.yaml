@@ -1,0 +1,26 @@
+# Starter pipeline, run it from Pipelines/Create Pipeline to model your pipeline build
+# Start with a minimal pipeline that you can customize to build and deploy your code using 'Show Assistant'.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: Running CICD Deploy of Django Python App deployed on AWS to Azure App Service!
+  displayName: 'Start CICD deployment run'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(487b78b4-b54c-457b-9367-034950454521)'
+    appType: 'webApp'
+    WebAppName: 'azure-devops-demo'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+- script: |
+    echo Deployed app to Azure
+    echo See https://aka.ms/yaml
+  displayName: 'End CICD deployment run'
